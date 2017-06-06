@@ -1,10 +1,14 @@
 package bar.final2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +18,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,8 +56,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv);
+        //RestaurantInfo.initialize();
+        /*RecyclerView rv = new RecyclerView(this);
         if(rv != null) {
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -59,8 +69,33 @@ public class MainActivity extends AppCompatActivity
         }
         else{
             System.out.println("hello");
+        }*/
+        ArrayList<RestaurantInfo> restaurantInfos = RestaurantInfo.initialize();
+        for(int i = 0; i < 30; i++) {
+            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(R.layout.card, null);
+            TextView textView = (TextView) view.findViewById(R.id.object_name);
+            textView.setText("pizza hut" + i);
+            TextView textView1 = (TextView) view.findViewById(R.id.object_details);
+            textView1.setText("pizza" + i);
+            ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
+            imageView.setImageResource(R.drawable.ic_menu_share);
+            LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
+            relativeLayout.addView(view);
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    System.out.println("Does this work?");
+                    //Intent intent = new Intent(MainActivity.this, NewActivity.class);
+                    //startActivity(intent);
+                }
+            });
+
         }
     }
+
+
+
 
     @Override
     public void onBackPressed() {

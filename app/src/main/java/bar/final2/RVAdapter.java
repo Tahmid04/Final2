@@ -41,9 +41,17 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RestaurantInfoHold
 
     @Override
     public void onBindViewHolder(RestaurantInfoHolder holder, int position) {
-        holder.restuarantName.setText(restaurantInfos.get(position).restaurantName);
-        holder.restaurantDetails.setText(restaurantInfos.get(position).restaurantDetails);
-        holder.restaurantPhoto.setImageResource(restaurantInfos.get(position).imageId);
+        if(holder != null) {
+            System.out.println("position" + position+ restaurantInfos.get(position).restaurantName + "1");
+            if(holder.restuarantName == null){
+                System.out.println("problem");
+            }
+           // holder.restuarantName.setText(restaurantInfos.get(position).restaurantName);
+           // holder.restaurantDetails.setText(restaurantInfos.get(position).restaurantDetails);
+            //holder.restaurantPhoto.setImageResource(restaurantInfos.get(position).imageId);
+        }else{
+            System.out.println("maybe");
+        }
     }
 
     @Override

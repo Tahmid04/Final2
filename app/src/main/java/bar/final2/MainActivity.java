@@ -24,6 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -70,6 +73,9 @@ public class MainActivity extends AppCompatActivity
         else{
             System.out.println("hello");
         }*/
+        //FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        //DatabaseReference databaseReference = firebaseDatabase.getReference("hello");
+        //databaseReference.setValue("world");
         ArrayList<RestaurantInfo> restaurantInfos = RestaurantInfo.initialize();
         for(int i = 0; i < 30; i++) {
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -82,6 +88,7 @@ public class MainActivity extends AppCompatActivity
             imageView.setImageResource(R.drawable.ic_menu_share);
             LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
             relativeLayout.addView(view);
+
             view.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {

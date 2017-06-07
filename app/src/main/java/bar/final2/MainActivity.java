@@ -4,30 +4,36 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static String RestaurantName;
+    static Set<OrderInfo> myOrders=new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,27 +76,51 @@ public class MainActivity extends AppCompatActivity
         else{
             System.out.println("hello");
         }*/
-        ArrayList<RestaurantInfo> restaurantInfos = RestaurantInfo.initialize();
-        for(int i = 0; i < 30; i++) {
-            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = layoutInflater.inflate(R.layout.card, null);
-            TextView textView = (TextView) view.findViewById(R.id.object_name);
-            textView.setText("pizza hut" + i);
-            TextView textView1 = (TextView) view.findViewById(R.id.object_details);
-            textView1.setText("pizza" + i);
-            ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
-            imageView.setImageResource(R.drawable.ic_menu_share);
-            LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
-            relativeLayout.addView(view);
-            view.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    System.out.println("Does this work?");
-                    //Intent intent = new Intent(MainActivity.this, NewActivity.class);
-                    //startActivity(intent);
-                }
-            });
 
+        ArrayList<RestaurantInfo> restaurantInfos = RestaurantInfo.initialize();
+
+        try {
+            InputStream inputStream = getResources().openRawResource(
+                    getResources().getIdentifier("dokan",
+                            "raw", getPackageName()));
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+
+                while ((receiveString = bufferedReader.readLine()) != null ) {
+                    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                    View view = layoutInflater.inflate(R.layout.card_view, null);
+                    TextView textView = (TextView) view.findViewById(R.id.object_name);
+                    textView.setText(receiveString);
+                    TextView textView1 = (TextView) view.findViewById(R.id.object_details);
+                    textView1.setText("pizza");
+                    ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
+                    imageView.setImageResource(R.drawable.ic_menu_share);
+                    LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
+                    relativeLayout.addView(view);
+
+                    view.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v) {
+                            TextView now=(TextView) v.findViewById(R.id.object_name);
+                            System.out.println(now.getText());
+                            RestaurantName=now.getText().toString();
+                            Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
+                            startActivity(intent);
+                        }
+                    });
+
+                    System.out.println(receiveString);
+                }
+                inputStream.close();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
         }
     }
 
@@ -137,6 +167,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_orders) {
 
         }  else if (id == R.id.nav_manage) {

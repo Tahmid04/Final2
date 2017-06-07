@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.CardView
@@ -11,7 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/object_photo"
@@ -19,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="8dp" />
 
             <TextView
                 android:id="@+id/object_name"
@@ -27,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/object_photo"
-                android:textSize="30sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/object_details"
@@ -36,6 +37,17 @@
                 android:layout_below="@+id/object_name"
                 android:layout_toRightOf="@+id/object_photo" />
 
+            <Button xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/add_to_cart"
+                style="@style/Widget.AppCompat.Button.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/object_details"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/holo_orange_dark"
+                android:text="@string/add_to_cart"
+                tools:text="Add To Cart" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

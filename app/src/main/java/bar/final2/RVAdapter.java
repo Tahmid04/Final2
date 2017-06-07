@@ -22,7 +22,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RestaurantInfoHold
         ImageView restaurantPhoto;
         RestaurantInfoHolder(View itemView){
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
+            cv = (CardView) itemView.findViewById(R.id.c);
             restuarantName = (TextView) itemView.findViewById(R.id.object_name);
             restaurantDetails = (TextView) itemView.findViewById(R.id.object_details);
         }

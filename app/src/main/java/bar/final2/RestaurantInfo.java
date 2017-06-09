@@ -16,11 +16,4 @@ public class RestaurantInfo {
         this.restaurantDetails = restaurantDetails;
         this.imageId = imageId;
     }
-
-    public static ArrayList<RestaurantInfo> initialize(){
-        ArrayList<RestaurantInfo> restaurantInfos = new ArrayList<>();
-        restaurantInfos.add(new RestaurantInfo("Pizza Hut", "60 minutes", R.drawable.ic_menu_gallery));
-        restaurantInfos.add(new RestaurantInfo("Pizza Guy", "120 minutes", R.drawable.ic_menu_send));
-        return restaurantInfos;
-    }
 }

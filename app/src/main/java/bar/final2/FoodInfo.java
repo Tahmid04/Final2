@@ -1,18 +1,21 @@
 package bar.final2;
 
+/**
+ * Created by mushfiq on 6/9/17.
+ */
 
-public class OrderInfo {
+public class FoodInfo {
     String FoodName;
     String Restaurant;
     String Price;
 
-    public OrderInfo(String F,String R,String P){
+    public FoodInfo(String F,String R,String P){
         FoodName=F;
         Restaurant=R;
         Price=P;
     }
 
-    public boolean equals(OrderInfo another) {
+    public boolean equals(FoodInfo another) {
         return (this.FoodName.equals(another.FoodName) &&
                 this.Restaurant.equals(another.Restaurant) &&
                 this.Price.equals(another.Price));

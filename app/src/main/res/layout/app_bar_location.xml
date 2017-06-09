@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="bar.final2.LocationPage">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/holo_orange_dark"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main"
+        android:id="@+id/include" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:backgroundTint="@android:color/holo_orange_dark" />
+
+    <TextView
+        android:id="@+id/City"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="32dp"
+        android:text="City :"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical">
+
+
+        <RadioButton android:id="@+id/Dhaka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dhaka"
+            android:textStyle="bold"
+            />
+        <RadioButton android:id="@+id/Chittagong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chittagong"
+            android:textStyle="bold"
+            />
+        <RadioButton android:id="@+id/Khulna"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Khulna"
+            android:textStyle="bold"
+            />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="330dp"
+        android:layout_marginLeft="32dp"
+        android:text="Location :"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical"
+        >
+
+
+        <RadioButton android:id="@+id/Option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="option1"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+        <RadioButton android:id="@+id/Option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="option2"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+        <RadioButton android:id="@+id/Option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="option3"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/ConfirmLocation"
+        android:layout_width="100dp"
+        android:layout_height="37dp"
+        android:text="Go"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:background="@drawable/roundedbutton2"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="480dp"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="120dp"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:src="@raw/location"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/object_photo"
@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp" />
+                android:layout_marginRight="4dp" />
 
             <TextView
                 android:id="@+id/object_name"
@@ -28,26 +28,41 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/object_photo"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/object_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/object_name"
-                android:layout_toRightOf="@+id/object_photo" />
+                android:layout_toRightOf="@+id/object_photo"
+                android:textSize="16sp" />
 
             <Button xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/add_to_cart"
                 style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/object_details"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:background="@android:color/holo_orange_dark"
+                android:background="@drawable/roundedbutton2"
                 android:text="@string/add_to_cart"
-                tools:text="Add To Cart" />
+                tools:text="Add To Cart"
+                android:layout_above="@+id/object_details" />
+
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:rating="1.0"
+                android:stepSize="0.1"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:layout_alignBottom="@+id/object_details"
+                android:layout_marginLeft="220dp" />
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

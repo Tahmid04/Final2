@@ -50,66 +50,65 @@ public class RestaurantDetails extends AppCompatActivity
 
 
 
-        try {
-            InputStream inputStream = getResources().openRawResource(
-                    getResources().getIdentifier("khabar",
-                            "raw", getPackageName()));
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString1 = "";
-                String receiveString2 = "";
-                String receiveString3 = "";
 
-                while ((receiveString1 = bufferedReader.readLine()) != null ) {
-                    receiveString2=bufferedReader.readLine();
-                    receiveString3=bufferedReader.readLine();
-                    if(receiveString1.compareTo(MainActivity.RestaurantName)!=0) continue;
-
-                    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                    View view = layoutInflater.inflate(R.layout.card_view1, null);
-                    TextView textView = (TextView) view.findViewById(R.id.object_name);
-                    textView.setText(receiveString2);
-                    TextView textView1 = (TextView) view.findViewById(R.id.object_details);
-                    textView1.setText(receiveString3);
-                    ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
-                    imageView.setImageResource(R.drawable.ic_menu_share);
-                    Button button = (Button) view.findViewById(R.id.add_to_cart);
-                    button.setText("Add To Cart");
-                    button.setTextColor(Color.WHITE);
-
-                    button.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-
-                            View PARENT=(ViewGroup) v.getParent();
-                            TextView now1=(TextView) PARENT.findViewById(R.id.object_name);
-                            TextView now2=(TextView) PARENT.findViewById(R.id.object_details);
-
-                            System.out.println(now1.getText());
-                            System.out.println(now2.getText());
-
-                            String ResName=MainActivity.RestaurantName;
-                            String FoodName=now1.getText().toString();
-                            String Price=now2.getText().toString();
-                            MainActivity.myOrders.add(new OrderInfo(ResName,FoodName,Price));
-                        }
-                    });
-
-                    LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
-                    relativeLayout.addView(view);
+        String receiveString1;
+        String receiveString2;
+        String receiveString3;
+        for(FoodInfo f: MainActivity.FoodBase){
+            receiveString1=f.FoodName;
+            receiveString2=f.Restaurant;
+            receiveString3=f.Price;
 
 
+            if(receiveString2.compareTo(MainActivity.RestaurantName)!=0) continue;
 
-                    System.out.println(receiveString2);
+            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View view = layoutInflater.inflate(R.layout.card_view1, null);
+            TextView textView = (TextView) view.findViewById(R.id.object_name);
+            textView.setText(receiveString1);
+            TextView textView1 = (TextView) view.findViewById(R.id.object_details);
+            textView1.setText(receiveString3);
+            ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
+            imageView.setImageResource(R.drawable.pizza);
+            Button button = (Button) view.findViewById(R.id.add_to_cart);
+            button.setText("Add To Cart");
+            button.setTextColor(Color.WHITE);
+
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    View PARENT=(ViewGroup) v.getParent();
+                    TextView now1=(TextView) PARENT.findViewById(R.id.object_name);
+                    TextView now2=(TextView) PARENT.findViewById(R.id.object_details);
+
+                    System.out.println(now1.getText());
+                    System.out.println(now2.getText());
+
+                    String ResName=MainActivity.RestaurantName;
+                    String FoodName=now1.getText().toString();
+                    String Price=now2.getText().toString();
+
+                    OrderInfo curr=new OrderInfo(FoodName,ResName,Price);
+                    boolean flag=true;
+                    for(OrderInfo k: MainActivity.myOrders){
+                        if(k.equals(curr)) flag=false;
+                    }
+                    if(flag){
+                        MainActivity.myOrders.add(curr);
+                        TextView messageBox=(TextView) findViewById(R.id.AddedToCart);
+                        messageBox.setTextColor(Color.rgb(0,120,0));
+                        messageBox.setText("Successfully added to cart");
+                    }
+                    else{
+                        TextView messageBox=(TextView) findViewById(R.id.AddedToCart);
+                        messageBox.setTextColor(Color.rgb(255,0,0));
+                        messageBox.setText("Item already exists in cart");
+                    }
                 }
-                inputStream.close();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            });
+
+            LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
+            relativeLayout.addView(view);
         }
     }
 
@@ -124,9 +123,8 @@ public class RestaurantDetails extends AppCompatActivity
             Intent intent = new Intent(RestaurantDetails.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_orders) {
-            for(OrderInfo now: MainActivity.myOrders){
-                System.out.println(now.Restaurant+" "+now.FoodName+" "+now.Price);
-            }
+            Intent intent = new Intent(RestaurantDetails.this, MyOrderPage.class);
+            startActivity(intent);
         }  else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

@@ -20,20 +20,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String RestaurantName;
-    static Set<OrderInfo> myOrders=new HashSet<>();
+    static ArrayList<OrderInfo>myOrders=new ArrayList<>();
+    static ArrayList<FoodInfo>FoodBase=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Banani, Dhaka");//hard-code
+        getSupportActionBar().setTitle(LocationPage.City+" , "+LocationPage.Location);//hard-code
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,65 +68,70 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //RestaurantInfo.initialize();
-        /*RecyclerView rv = new RecyclerView(this);
-        if(rv != null) {
-            rv.setHasFixedSize(true);
-            LinearLayoutManager llm = new LinearLayoutManager(this);
-            rv.setLayoutManager(llm);
-            RVAdapter adapter = new RVAdapter(RestaurantInfo.initialize());
-            rv.setAdapter(adapter);
-            RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.content_main);
-            relativeLayout.addView(rv);
-        }
-        else{
-            System.out.println("hello");
-        }*/
 
-        ArrayList<RestaurantInfo> restaurantInfos = RestaurantInfo.initialize();
 
-        try {
-            InputStream inputStream = getResources().openRawResource(
-                    getResources().getIdentifier("dokan",
-                            "raw", getPackageName()));
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
+        //Database Retrieve Code Begin
+        FoodBase.clear();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("FoodInfo");
 
-                while ((receiveString = bufferedReader.readLine()) != null ) {
-                    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long orderInfo= dataSnapshot.getChildrenCount();
+                Iterable<DataSnapshot>Row=dataSnapshot.getChildren();
+                for(DataSnapshot ds:Row){
+                    Iterable<DataSnapshot>Attributes=ds.getChildren();
+                    String FoodName="";
+                    String Restaurant="";
+                    String Price="";
+                    int COUNT=0;
 
-                    View view = layoutInflater.inflate(R.layout.card_view, null);
-                    TextView textView = (TextView) view.findViewById(R.id.object_name);
-                    textView.setText(receiveString);
-                    TextView textView1 = (TextView) view.findViewById(R.id.object_details);
-                    textView1.setText("pizza");
-                    ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
-                    imageView.setImageResource(R.drawable.ic_menu_share);
-                    LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
-                    relativeLayout.addView(view);
-
-                    view.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View v) {
-                            TextView now=(TextView) v.findViewById(R.id.object_name);
-                            System.out.println(now.getText());
-                            RestaurantName=now.getText().toString();
-                            Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
-                            startActivity(intent);
-                        }
-                    });
-
-                    System.out.println(receiveString);
+                    for(DataSnapshot attr: Attributes){
+                        COUNT++;
+                        if(COUNT==1) FoodName=attr.getValue(String.class);
+                        else if(COUNT==2) Price=attr.getValue(String.class);
+                        else Restaurant=attr.getValue(String.class);
+                    }
+                    FoodBase.add(new FoodInfo(FoodName,Restaurant,Price));
+                    System.out.println("from DB: "+FoodName+" "+Restaurant+" "+Price);
                 }
-                inputStream.close();
             }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        //Database Retrieve Code End
+
+
+
+
+        for(RestaurantInfo RI: LocationPage.RestaurantBase){
+            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            View view = layoutInflater.inflate(R.layout.card_view, null);
+            TextView textView = (TextView) view.findViewById(R.id.object_name);
+            textView.setText(RI.restaurantName);
+            TextView textView1 = (TextView) view.findViewById(R.id.object_details);
+            textView1.setText(RI.restaurantDetails);
+            ImageView imageView = (ImageView) view.findViewById(R.id.object_photo);
+            imageView.setImageResource(R.drawable.pfk);
+            LinearLayout relativeLayout = (LinearLayout) findViewById(R.id.content_main);
+            relativeLayout.addView(view);
+
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    TextView now=(TextView) v.findViewById(R.id.object_name);
+                    System.out.println(now.getText());
+                    RestaurantName=now.getText().toString();
+                    Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -153,6 +164,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            System.out.println("Hello");
             return true;
         }
 
@@ -170,7 +182,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_orders) {
-
+            Intent intent = new Intent(MainActivity.this, MyOrderPage.class);
+            startActivity(intent);
         }  else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

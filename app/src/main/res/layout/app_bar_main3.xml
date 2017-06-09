@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="bar.final2.RestaurantDetails">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/holo_orange_dark"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:backgroundTint="@android:color/holo_orange_dark" />
+
+
+    <TextView
+        android:id="@+id/BillPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="25dp"
+        android:text="Payment method :"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="25dp"
+        android:orientation="vertical">
+
+        <RadioButton android:id="@+id/Option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credit/Debit card"/>
+        <RadioButton android:id="@+id/Option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BKash"/>
+        <RadioButton android:id="@+id/Option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash on delivery"/>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/DeliveryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
+        android:layout_marginLeft="25dp"
+        android:text="Delivery Address :"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:id="@+id/inputAddress"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginLeft="25dp"
+        android:inputType="textPostalAddress" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:layout_marginLeft="25dp"
+        android:text="Use my current address" />
+
+
+    <Button
+        android:id="@+id/PlaceOrder"
+        android:layout_width="160dp"
+        android:layout_height="37dp"
+        android:text="Place Order"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:background="@drawable/roundedbutton2"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="440dp"
+        />
+
+    <TextView
+        android:id="@+id/AlertMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        android:layout_marginLeft="40dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

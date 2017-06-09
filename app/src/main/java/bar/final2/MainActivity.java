@@ -12,10 +12,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,12 +44,16 @@ public class MainActivity extends AppCompatActivity
     static ArrayList<FoodInfo>FoodBase=new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final EditText editText = (EditText) findViewById(R.id.myEditText);
+
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(LocationPage.City+" , "+LocationPage.Location);//hard-code
+        getSupportActionBar().setTitle(LocationPage.City+" , "+LocationPage.Location);
+        editText.setText(LocationPage.City+" , "+LocationPage.Location);
+        //hard-code
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -133,8 +139,30 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
-    }
 
+        toolbar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(keyEvent.getAction()!=KeyEvent.ACTION_DOWN) return false;
+
+                TextView now=(TextView) findViewById(R.id.myEditText);
+                System.out.println(now.getText());
+                RestaurantName=now.getText().toString();
+                Intent intent = new Intent(MainActivity.this, RestaurantDetails.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+    }
 
 
 

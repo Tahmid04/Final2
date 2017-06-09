@@ -60,7 +60,8 @@ public class RestaurantDetails extends AppCompatActivity
             receiveString3=f.Price;
 
 
-            if(receiveString2.compareTo(MainActivity.RestaurantName)!=0) continue;
+            if(!receiveString2.contains(MainActivity.RestaurantName)
+                    && !receiveString1.contains(MainActivity.RestaurantName)) continue;
 
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

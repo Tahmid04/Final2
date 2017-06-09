@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="bar.final2.RestaurantDetails">
+    tools:context="bar.final2.Activity.FoodDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -101,16 +101,16 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:background="@drawable/roundedbutton2"
         android:textColor="@android:color/white"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="460dp"
         />
 
     <TextView
         android:id="@+id/AlertMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="370dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginTop="390dp"
+        android:layout_marginLeft="60dp"
         android:textSize="20sp"
         android:textStyle="bold"
         />

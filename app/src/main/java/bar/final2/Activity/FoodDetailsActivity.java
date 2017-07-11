@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import bar.final2.Models.FoodInfo;
-import bar.final2.Models.OrderInfo;
 import bar.final2.R;
 
 public class FoodDetailsActivity extends AppCompatActivity
@@ -86,11 +85,12 @@ public class FoodDetailsActivity extends AppCompatActivity
                     String FoodName=now1.getText().toString();
                     String Price=now2.getText().toString();
 
-                    OrderInfo curr=new OrderInfo(FoodName,ResName,Price);
+                    FoodInfo curr=new FoodInfo(FoodName,ResName,Price);
                     boolean flag=true;
-                    for(OrderInfo k: RecommendationPageActivity.myOrders){
+                    for(FoodInfo k: RecommendationPageActivity.myOrders){
                         if(k.equals(curr)) flag=false;
                     }
+
                     if(flag){
                         RecommendationPageActivity.myOrders.add(curr);
                         TextView messageBox=(TextView) findViewById(R.id.AddedToCart);

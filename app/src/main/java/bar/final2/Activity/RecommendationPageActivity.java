@@ -31,16 +31,17 @@ import java.util.ArrayList;
 
 import bar.final2.Models.FoodInfo;
 import bar.final2.Models.OrderInfo;
-import bar.final2.R;
 import bar.final2.Models.RestaurantInfo;
+import bar.final2.R;
 
 
 public class RecommendationPageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static String RestaurantName;
-    static ArrayList<OrderInfo>myOrders=new ArrayList<>();
+    static ArrayList<FoodInfo>myOrders=new ArrayList<>();
     static ArrayList<FoodInfo>FoodBase=new ArrayList<>();
+    static ArrayList<OrderInfo>PrevOrders=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -112,6 +113,45 @@ public class RecommendationPageActivity extends AppCompatActivity
         //Database Retrieve Code End
 
 
+        //Database Retrieve Code Begin
+        PrevOrders.clear();
+        DatabaseReference ref2 = database.getReference("OrderInfo");
+
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long orderInfo= dataSnapshot.getChildrenCount();
+                Iterable<DataSnapshot>Row=dataSnapshot.getChildren();
+                for(DataSnapshot ds:Row){
+                    Iterable<DataSnapshot>Attributes=ds.getChildren();
+                    String FoodName="";
+                    String Restaurant="";
+                    String Review="";
+                    String Date="";
+                    int COUNT=0;
+
+                    for(DataSnapshot attr: Attributes){
+                        COUNT++;
+                        if(COUNT==1) Date=attr.getValue(String.class);
+                        else if(COUNT==2) FoodName=attr.getValue(String.class);
+                        else if(COUNT==3) Restaurant=attr.getValue(String.class);
+                        else Review=attr.getValue(String.class);
+                    }
+
+                    PrevOrders.add(new OrderInfo(FoodName,Restaurant,Review));
+                    System.out.println("going on"+PrevOrders.size());
+                    System.out.println("from DB: "+FoodName+" "+Restaurant+" "+Review);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        //Database Retrieve Code End
+
 
 
         for(RestaurantInfo RI: LocationPageActivity.RestaurantBase){
@@ -160,7 +200,6 @@ public class RecommendationPageActivity extends AppCompatActivity
                 return true;
             }
         });
-
     }
 
 
@@ -190,7 +229,7 @@ public class RecommendationPageActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings){
             System.out.println("Hello");
             return true;
         }
@@ -211,7 +250,12 @@ public class RecommendationPageActivity extends AppCompatActivity
         } else if (id == R.id.nav_orders) {
             Intent intent = new Intent(RecommendationPageActivity.this, MyOrderPageActivity.class);
             startActivity(intent);
-        }  else if (id == R.id.nav_manage) {
+        }
+        else if (id==R.id.nav_prev){
+            Intent intent = new Intent(RecommendationPageActivity.this, ReviewPageActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 

@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,12 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class RestaurantDetails extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -89,9 +82,9 @@ public class RestaurantDetails extends AppCompatActivity
                     String FoodName=now1.getText().toString();
                     String Price=now2.getText().toString();
 
-                    OrderInfo curr=new OrderInfo(FoodName,ResName,Price);
+                    FoodInfo curr=new FoodInfo(FoodName,ResName,Price);
                     boolean flag=true;
-                    for(OrderInfo k: MainActivity.myOrders){
+                    for(FoodInfo k: MainActivity.myOrders){
                         if(k.equals(curr)) flag=false;
                     }
                     if(flag){

@@ -21,7 +21,8 @@
         <activity android:name=".Activity.FoodDetailsActivity" />
         <activity android:name=".Activity.MyOrderPageActivity" />
         <activity android:name=".Activity.CheckOutPageActivity" />
-        <activity android:name=".Activity.RecommendationPageActivity"></activity>
+        <activity android:name=".Activity.RecommendationPageActivity" />
+        <activity android:name=".Activity.ReviewPageActivity"></activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package bar.final2;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
@@ -11,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -57,7 +56,7 @@ public class MyOrderPage extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TotalSum=0;
-        for(OrderInfo now: MainActivity.myOrders){
+        for(FoodInfo now: MainActivity.myOrders){
             System.out.println(now.Restaurant+" "+now.FoodName+" "+now.Price);
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -131,9 +130,9 @@ public class MyOrderPage extends AppCompatActivity
 
                     ((ViewManager)PARENT.getParent()).removeView(PARENT);
 
-                    OrderInfo now=new OrderInfo(F,Res,Price);
-                    OrderInfo toDelete = null;
-                    for(OrderInfo k: MainActivity.myOrders){
+                    FoodInfo now=new FoodInfo(F,Res,Price);
+                    FoodInfo toDelete = null;
+                    for(FoodInfo k: MainActivity.myOrders){
                         if(k.equals(now)) {
                             toDelete = k;
                             break;

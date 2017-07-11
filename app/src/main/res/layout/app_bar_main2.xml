@@ -37,8 +37,8 @@
         android:layout_width="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="190dp"
-        android:layout_marginTop="430dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="410dp"
         android:textStyle="bold"/>
 
     <Button
@@ -49,8 +49,8 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:background="@drawable/roundedbutton2"
         android:textColor="@android:color/white"
-        android:layout_marginLeft="210dp"
-        android:layout_marginTop="470dp"
+        android:layout_marginLeft="170dp"
+        android:layout_marginTop="450dp"
         />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
@@ -13,7 +14,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import bar.final2.Models.OrderInfo;
+import bar.final2.Models.FoodInfo;
 import bar.final2.R;
 
 public class MyOrderPageActivity extends AppCompatActivity
@@ -40,7 +40,7 @@ public class MyOrderPageActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Orders");//hard-code
+        getSupportActionBar().setTitle("My Cart");//hard-code
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class MyOrderPageActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TotalSum=0;
-        for(OrderInfo now: RecommendationPageActivity.myOrders){
+        for(FoodInfo now: RecommendationPageActivity.myOrders){
             System.out.println(now.Restaurant+" "+now.FoodName+" "+now.Price);
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -149,9 +149,9 @@ public class MyOrderPageActivity extends AppCompatActivity
 
                                     ((ViewManager)PARENT.getParent()).removeView(PARENT);
 
-                                    OrderInfo now=new OrderInfo(F,Res,Price);
-                                    OrderInfo toDelete = null;
-                                    for(OrderInfo k: RecommendationPageActivity.myOrders){
+                                    FoodInfo now=new FoodInfo(F,Res,Price);
+                                    FoodInfo toDelete = null;
+                                    for(FoodInfo k: RecommendationPageActivity.myOrders){
                                         if(k.equals(now)) {
                                             toDelete = k;
                                             break;

@@ -2,6 +2,7 @@ package bar.final2.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +19,14 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import bar.final2.Models.FoodInfo;
+import bar.final2.Models.OrderInfo;
 import bar.final2.R;
 
 public class CheckOutPageActivity extends AppCompatActivity
@@ -92,7 +100,21 @@ public class CheckOutPageActivity extends AppCompatActivity
                 else {
                     AlertMessage.setTextColor(Color.rgb(0,120,0));
                     AlertMessage.setText("   Your Order has been placed\n                  Thank You");
+
+
+                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("OrderInfo");
+
+                    int DataBaseSize=0;
+                    Map<String, OrderInfo> myOrderMap = new HashMap<String, OrderInfo>();
+
+                    for(FoodInfo ord: RecommendationPageActivity.myOrders){
+                        myOrderMap.put("Item"+String.format("%03d",++DataBaseSize),
+                                new OrderInfo(ord.FoodName,ord.Restaurant,""));
+                    }
+                    ref.setValue(myOrderMap);
                     RecommendationPageActivity.myOrders.clear();
+
                 }
             }
         });
